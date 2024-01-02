@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+    <h1>Flaskr</h1>
+    <ul>
+        {% if g.user %}
+        <li><span>{{g.user['username']}}</span></li>
+        <li><a href="{{url_for('auth.logout')}}">Logout</a></li>
+        {% else %}
+        <li><a href="{{url_for('auth.register')}}">Register</a></li>
+        <li><a href="{{url_for('auth.login')}}">log In</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{message}}</div>
+    <!--After the page title, and before the content, the template loops over each message returned by get_flashed_messages(). You used flash() in the views to show error messages, and this is the code that will display them.-->
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>
+
+<!-- g is automatically available in templates. Based on if g.user is set (from load_logged_in_user), either the username and a log out link are displayed, or links to register and log in are displayed. url_for() is also automatically available, and is used to generate URLs to views instead of writing them out manually. -->
