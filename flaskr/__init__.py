@@ -52,6 +52,12 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
+    from . import blog
+    app.register_blueprint(blog.bp)
+    app.add_url_rule('/', endpoint='index')
+    #However, the endpoint for the index view defined below will be blog.index. Some of the authentication views referred to a plain index endpoint. app.add_url_rule() associates the endpoint name 'index' with the / url so that url_for('index') or url_for('blog.index') will both work, generating the same / URL either way.
+
+
     return app
 
 

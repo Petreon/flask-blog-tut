@@ -69,6 +69,7 @@ def login():
         db = get_db()
         error = None
 
+
         user = db.execute(
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
@@ -102,6 +103,8 @@ def login():
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
+
+    #print("User_id: ", user_id)
 
     if user_id is None:
         g.user = None
