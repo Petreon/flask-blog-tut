@@ -31,18 +31,7 @@ def app():
 
 @pytest.fixture
 def client(app):
-    client = app.test_client()
-
-    # Ensure the g object is cleared after each request
-    ctx = app.app_context()
-    ctx.push()
-
-    def teardown():
-        ctx.pop()
-        close_db()
-
-    app.teardown_request(teardown)
-    return client
+    return app.test_client()
     #The client fixture calls app.test_client() with the application object created by the app fixture. Tests will use the client to make requests to the application without running the server.
 
 

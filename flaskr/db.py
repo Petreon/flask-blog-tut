@@ -41,7 +41,7 @@ def init_db_command():
 
     init_db()
 
-    click.echo("initialized the database")
+    click.echo("Initialized the database")
 
     #click.command() defines a command line command called init-db that calls the init_db function and shows a success message to the user. You can read Command Line Interface to learn more about writing commands.
 

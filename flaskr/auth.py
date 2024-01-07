@@ -29,9 +29,9 @@ def register():
 
         ##handling some errors Validate that username and password are not empty.
         if not username:
-            error = 'Username is required'
+            error = 'Username is required.'
         elif not password:
-            error = 'Password is required'
+            error = 'Password is required.'
 
         #If validation succeeds, insert the new user data into the database.
 
@@ -78,7 +78,7 @@ def login():
         #fetchone() returns one row from the query. If the query returned no results, it returns None. Later, fetchall() will be used, which returns a list of all results.
 
         if user is None:
-            error = 'Incorrect Username.'
+            error = 'Incorrect username.'
 
         elif not check_password_hash(user['password'], password): #check_password_hash() hashes the submitted password in the same way as the stored hash and securely compares them. If they match, the password is valid.
             error = 'Incorrect password.'
@@ -86,6 +86,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
+            session['username'] = user['username']
             return redirect(url_for('index'))
             #session is a dict that stores data across requests. When validation succeeds, the user’s id is stored in a new session. The data is stored in a cookie that is sent to the browser, and the browser then sends it back with subsequent requests. Flask securely signs the data so that it can’t be tampered with.
             # a modern way to do this is to use an UUID not the autoincrement ID, this can cause problens of another user trying to access other users data

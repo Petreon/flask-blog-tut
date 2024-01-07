@@ -48,6 +48,7 @@ def test_login(client, auth):
     #Using client in a with block allows accessing context variables such as session after the response is returned. Normally, accessing session outside of a request would raise an error.
     with client:
         client.get('/')
+        print(session)
         assert session['user_id'] == 1
         assert session['username'] == 'test'
 
