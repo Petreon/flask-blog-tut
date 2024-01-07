@@ -17,7 +17,7 @@ def get_db():
 
         #g is a special object that is unique for each request. It is used to store data that might be accessed by multiple functions during the request. The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request.
 
-        return g.db
+    return g.db
     
 def close_db(e=None):
     db = g.pop('db', None)
