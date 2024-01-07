@@ -10,18 +10,17 @@ bp = Blueprint('blog', __name__)
 @bp.route('/')
 def index():
     #The index will show all of the posts, most recent first. A JOIN is used so that the author information from the user table is available in the result.
-    if g.user is None:
-        db = get_db()
+    
+    db = get_db()
         #print('AAAAAAAAAAAAA')
         #print(g.user)
 
-        posts = db.execute(""" SELECT p.id, title, body, created, author_id, username FROM post p JOIN user u ON p.author_id = u.id ORDER BY created DESC
+    posts = db.execute(""" SELECT p.id, title, body, created, author_id, username FROM post p JOIN user u ON p.author_id = u.id ORDER BY created DESC
 """).fetchall() ## return a list key:value map with all post an return it to template to render
         
-    else: 
+     
         ## this is temporary because g is not closing the db connection when load_user_logged is called maybe this get-off in the future but now is working
-        posts = g.db.execute(""" SELECT p.id, title, body, created, author_id, username FROM post p JOIN user u ON p.author_id = u.id ORDER BY created DESC
-""").fetchall()
+        
         #print(posts[0]['title'])
     
     return render_template('blog/index.html', posts = posts)
@@ -41,8 +40,9 @@ def create():
         if error is not None:
             flash(error)
         else:
-            g.db.execute(""" INSERT INTO post (title,body,author_id) VALUES (?,?,?)""",(title,body,g.user['id']))
-            g.db.commit()
+            db = get_db()
+            db.execute(""" INSERT INTO post (title,body,author_id) VALUES (?,?,?)""",(title,body,g.user['id']))
+            db.commit()
             return redirect(url_for('blog.index'))
         
     return render_template('blog/create.html')
@@ -51,7 +51,7 @@ def create():
 
 def get_post(id, check_author=True):
     ## if this doestn work change to g.db.execute()
-    post = g.db.execute(
+    post = get_db().execute(
         """SELECT p.id, title, body, created, author_id, username
          FROM post p JOIN user u ON p.author_id = u.id
           WHERE p.id = ? """, (id,)
@@ -86,11 +86,12 @@ def update(id):
             flash(error)
 
         else:
-            g.db.execute(
+            db = get_db()
+            db.execute(
                 """UPDATE post SET title = ? , body = ?
                 WHERE id = ?""", (title,body,id)
             )
-            g.db.commit()
+            db.commit()
             return redirect(url_for('blog.index'))
         
     #Unlike the views you’ve written so far, the update function takes an argument, id. That corresponds to the <int:id> in the route. A real URL will look like /1/update. Flask will capture the 1, ensure it’s an int, and pass it as the id argument. If you don’t specify int: and instead do <id>, it will be a string. To generate a URL to the update page, url_for() needs to be passed the id so it knows what to fill in: url_for('blog.update', id=post['id']). This is also in the index.html file above.
@@ -102,7 +103,7 @@ def update(id):
 @login_required
 def delete(id):
     get_post(id) ## the get_post method is only usefull to validate if the user can really delete de post if not will raise an error
-    #db = get_db() this doesnt working
-    g.db.execute('DELETE FROM post WHERE id = ?', (id,))
-    g.db.commit()
+    db = get_db() 
+    db.execute('DELETE FROM post WHERE id = ?', (id,))
+    db.commit()
     return redirect(url_for('blog.index'))
