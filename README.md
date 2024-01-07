@@ -6,6 +6,8 @@ Doing the Flask tutorial to create a mini-blog application
 - pytest
 - coverage
 
+### clone the application https://github.com/Petreon/flask-blog-tut.git
+
 ## initiate the database for the application
 - flask --app flaskr init-db
 
