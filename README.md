@@ -9,17 +9,17 @@ Doing the Flask tutorial to create a mini-blog application
 ### Clone the application https://github.com/Petreon/flask-blog-tut.git
 
 ## Install the project in the virtual enviroment
--$ pip install -e .
+- $ pip install -e .
 
 ## Run tests to see if is everything ok
--$ pytest
--$ coverage run -m pytest
--$ coverage report (to show in the terminal)
--$ coverage html (to show in an webbrowser)
+- $ pytest
+- $ coverage run -m pytest
+- $ coverage report (to show in the terminal)
+- $ coverage html (to show in an webbrowser)
 
 ## Initiate the database for the application
--$ flask --app flaskr init-db
+- $ flask --app flaskr init-db
 
 ## Initiate the application
--$ flask --app flaskr run --host=0.0.0.0
+- $ flask --app flaskr run --host=0.0.0.0
 
