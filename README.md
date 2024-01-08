@@ -13,6 +13,9 @@ Doing the Flask tutorial to create a mini-blog application
 
 ## Run tests to see if is everything ok
 -$ pytest
+-$ coverage run -m pytest
+-$ coverage report (to show in the terminal)
+-$ coverage html (to show in an webbrowser)
 
 ## Initiate the database for the application
 -$ flask --app flaskr init-db
