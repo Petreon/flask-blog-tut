@@ -1,15 +1,22 @@
-# flask-blog-tut
+# Flask-blog-tut
 Doing the Flask tutorial to create a mini-blog application
 
-## create an python venv an install
+## Create an python venv an install
 - flask
 - pytest
 - coverage
 
-### clone the application https://github.com/Petreon/flask-blog-tut.git
+### Clone the application https://github.com/Petreon/flask-blog-tut.git
 
-## initiate the database for the application
-- flask --app flaskr init-db
+## Install the project in the virtual enviroment
+-$ pip install -e .
 
-## initiate the application
-- flask --app flaskr run --host=0.0.0.0
+## Run tests to see if is everything ok
+-$ pytest
+
+## Initiate the database for the application
+-$ flask --app flaskr init-db
+
+## Initiate the application
+-$ flask --app flaskr run --host=0.0.0.0
+
